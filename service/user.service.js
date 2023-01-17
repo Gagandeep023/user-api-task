@@ -40,4 +40,29 @@ UserServices.deleteUserDetails = async ( userId) => {
     
     return response;
   };
+
+  UserServices.updateUserDetails = async (name, city, userId) => {
+    let response;
+      try {
+        await UserCredential.update(
+          { 
+            name: name, 
+            city: city,
+          },
+          { 
+           where:{ id: userId } 
+          })
+          .then((updatedRecord) => {
+              response = { success: true, msg: `updated record ${updatedRecord}`};
+          })
+        
+      } catch (err) {
+        console.log(err);
+        return  { success: false, msg: 'Unhandled Exception!!' };
+        ;    
+    
+    }
+    return response;
+  
+  };
 module.exports = UserServices;

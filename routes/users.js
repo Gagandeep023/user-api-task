@@ -16,4 +16,6 @@ router.delete('/delete-user', CHECK_FOR_AUTHENTICATION, userController.deleteUse
 
 router.get('/all-users',CHECK_FOR_AUTHENTICATION, userController.getAllUsersDetails);
 
+router.post('/update-user-details',CHECK_FOR_AUTHENTICATION, userController.updateUserDetails);
+
 module.exports = router;

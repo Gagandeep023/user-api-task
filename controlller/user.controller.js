@@ -100,4 +100,17 @@ userController.getAllUsersDetails = async (req, res) => {
       return 'Unhandled Exception!!';
     }
 };
+userController.updateUserDetails = async (req, res) => {
+    const name = req.body.name;
+    const city = req.body.city;
+    const userId = req.user.id;
+
+    try {
+        const response = await UserServices.updateUserDetails(name, city, userId);
+        res.send(response);
+    } catch (err) {
+		console.log(err);
+      res.status(401).json({ success: false, msg: 'Unhandled Exception!!' });
+    }
+  };
 module.exports = userController;
