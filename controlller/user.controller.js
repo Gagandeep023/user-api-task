@@ -1,5 +1,6 @@
 const { UserCredential } = require("../models");
 const ROLES_LIST = require('../config/roles_list');
+const UserServices = require('../service/user.service');
 
 const credentialUtils = require('../lib/credentialUtils');
 const userController = {};
@@ -48,9 +49,11 @@ userController.register = async (req, res, next) => {
         const hash = saltHash.hash;
 
         const newUser = new UserCredential({
+            name: req.body.name,
             username: req.body.username,
             hash: hash,
             salt: salt,
+            city: req.body.city,
             roles: ROLES_LIST.User,
         });
 
@@ -59,7 +62,11 @@ userController.register = async (req, res, next) => {
             newUser.save()
                 .then((user) => {
                     res.json({ success: true});
-                });
+                }).catch(error => {
+                    console.log(error)
+                    return res.status(401).json({ success: false, msg: error});
+
+                  })
 
         } catch (err) {
             
@@ -72,5 +79,25 @@ userController.register = async (req, res, next) => {
     });
 
 };
+userController.deleteUserDetails = async (req, res) => {
+    const userId = req.query.user_id;
 
+    try {
+        const response = await UserServices.deleteUserDetails(userId);
+        res.send(response);
+    } catch (err) {
+		console.log(err);
+      return 'Unhandled Exception!!';
+    }
+  };
+
+userController.getAllUsersDetails = async (req, res) => {
+    try {
+        const response = await UserServices.getAllUsersDetails();
+        res.send(response);
+    } catch (err) {
+		console.log(err);
+      return 'Unhandled Exception!!';
+    }
+};
 module.exports = userController;

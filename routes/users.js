@@ -11,4 +11,9 @@ router.get('/protected', CHECK_FOR_AUTHENTICATION, (req, res, next) => {
 router.post('/login', userController.login);
 
 router.post('/register', userController.register);
+
+router.delete('/delete-user', CHECK_FOR_AUTHENTICATION, userController.deleteUserDetails);
+
+router.get('/all-users',CHECK_FOR_AUTHENTICATION, userController.getAllUsersDetails);
+
 module.exports = router;

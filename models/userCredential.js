@@ -1,5 +1,12 @@
 module.exports = (sequelize, DataTypes) =>{
     const UserCredential = sequelize.define("UserCredential", {
+        name:{
+            type:DataTypes.STRING,
+            allowNull: false,
+            validate:{
+                notEmpty: true,
+            },
+        },
         username:{
             type:DataTypes.STRING,
             allowNull: false,
@@ -15,6 +22,13 @@ module.exports = (sequelize, DataTypes) =>{
             },
         },
         salt:{
+            type:DataTypes.STRING,
+            allowNull: false,
+            validate:{
+                notEmpty: true,
+            },
+        },
+        city:{
             type:DataTypes.STRING,
             allowNull: false,
             validate:{
